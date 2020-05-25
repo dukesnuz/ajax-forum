@@ -1,0 +1,57 @@
+
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+		<?php
+		 
+//form
+
+//billing.html p 315
+echo '<h2>Your Billing Information</h2>';
+echo '<p>Please enter your billing information below. Then click the button to complete your order.
+	  For your security, we will not store your billing infomation in anyway. We accept Visa, Mastercard,
+	  American Express and Discover.</p>';
+echo '<form action="billing.php" method="post" id="billing_form">';
+echo '<span class="error" id="error_span"></span>';
+  ?>
+<p><label>Card Number</label>
+      <input type="text" id="cc_number" autocomplete="off"/></p>
+
+<p><label>Expiration Date(MM/YYYY)</label>
+      <input type="text" id="cc_exp_month" autocomplete="off"/>/
+      <input type="text" id="cc_exp_year" autocomplete="off"/></p>
+      
+<p><label>CVV</label>
+      <input type="text" id="cc_cvv" autocomplete="off"/></p>
+      
+<p><label>First Name</label>
+      <input type="text" id="cc_first_name" name="cc_first_name" autocomplete="off"/></p>
+      
+<p><label>Last Name</label>
+      <input type="text" id="cc_last_name" name="cc_last_name" autocomplete="off"/></p>  
+     
+<p><label>cc_address</label>
+      <input type="text" id="cc_address" name="cc_address" autocomplete="off"/></p> 
+      
+<p><label>cc_city</label>
+      <input type="text" id="cc_city" name="cc_city" autocomplete="off"/></p> 
+      
+<p><label>cc_state</label>
+      <input type="text" id="cc_state" name="cc_state" autocomplete="off"/></p>
+      
+ <p><label>cc_zip</label>
+      <input type="text" id="cc_zip" name="cc_zip" autocomplete="off"/></p>
+      
+      
+      
+<input type="submit" value="Place Order" class="press" />
+<p>By clicking this button, your order will be completed and your credit card will be charged.</p>
+
+</form>
+
+<?php
+echo '<script type="text/javascript">Stripe.setPublishableKey("'.STRIPE_PUBLIC_KEY.'");</script>';
+echo '<script type="text/javascript">Stripe.setPublishableKey("'.STRIPE_PRIVATE_KEY.'");</script>';
+?>
+	<script type="text/javascript" src="../my_jquery/billing.js"></script>
+			

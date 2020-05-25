@@ -1,0 +1,117 @@
+<?php # my_forum  from chp 18 - header.html
+include('../site_utilities/config.inc.php');
+//begin out put buffering and start session
+ob_start();
+session_start();
+
+  //get page title
+if(!isset($page_title))
+  {
+  $page_title= 'Forum';
+  }
+ 
+ //I added to get keywords as done in headers chp 17
+  // require(MYSQL); defined in config
+              require(MYSQL); 
+  // require('includes/mysqli_connect.php');
+   //added nest 4 lines 
+   //determine the language
+if(isset($_GET['lid']) && filter_var($_GET['lid'], FILTER_VALIDATE_INT, array('min-range' => 1 ))){
+    $_SESSION['lid'] = $_GET['lid'];
+	}elseif (!isset($_SESSION['lid'])){
+	$_SESSION['lid'] = 1; //Default.
+}
+//end I added
+  //get the keywords for this language
+$q = "SELECT * FROM words WHERE lang_id = {$_SESSION['lid']}";
+$r= mysqli_query($dbc, $q);
+
+if(mysqli_num_rows($r) == 0)
+  {$_SESSION['lid'] = 1;
+  $q = "SELECT * FROM words WHERE lang_id = {$_SESSION['lid']}";
+  $r= mysli_query($dbc, $q);
+  }
+  
+  //fetch retrieved words into an array and close php section
+  $words = mysqli_fetch_array($r, MYSQLI_ASSOC);
+  mysqli_free_result($r);
+  //end I added to get keywords 
+
+  ?>
+  
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta charset="utf-8">
+<meta name="description" content="This is a forum message board  for the freight transportation industry. Carriers, Brokers or anyone in the transportation industry can post and read messages in this forum." />
+<meta name="keywords" content="message board, forum, freight transport, brokers, carriers,shippers,trucking" />
+<meta name="author" content="metatags generator">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="3 days">
+<meta name="generator" content=" ">
+<meta name="dcterms.created" content="">
+
+<meta name="p:domain_verify" content="dc11678227af18438bff9d43cf0cd643"/>
+
+    <title><?php echo $page_title; ?></title>
+    
+   <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	  <!-- <link rel="shortcut icon" type="image/x-icon" href="http://LoadedAndRolling.com/r/images/favicon.ico">-->
+	  <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico">
+	  
+	  
+	   <link rel="stylesheet" media="all" href="../styles/styles.css" type="text/css"/>
+
+	  <script src="../js/jquery-1.7.2.min.js"></script>
+      <script src="../js/jquery.easing.1.3.js"></script>  
+      <script src="../my_jquery/my_jquery_scripts.js"></script>
+<script>
+$(document).ready(function(){
+    $('#headertoggle').click(function(){
+	$('.maintitle').toggle(2000);
+	});//end click
+});//end document ready
+</script>
+</head>
+	<body>
+		<div class="pageWrapper">
+<header>
+
+
+
+
+<!--using data base to sore the below information
+<h1>LoadedandRolling Forum</h1>
+<h2>Dedicated to the freight transportation industry.</h2>
+-->
+<div class="maintitle">
+<?php include('../site_utilities/add_email_form.html');?>
+<img src="../images/logo.png" class="logo" width="75" height="75" alt="forum logo">
+<?php  echo $words['intro']; ?>
+ 
+
+</div>
+
+
+<?php
+	//for some reason my_drivers.php and my_trucks.php  and search ecity state zip 
+	//is not working with the second menu which is a plugin
+	//so if on 1 of these pages change menue
+//select which menu to use
+//$menu_type = "menu_jquery";
+//$menu_type = "menu_css";
+if($menu_type == "menu_jquery")
+	{
+	include('../headers_menus_footers/menu_jquery_plugin.php');
+	}else{
+    include('../headers_menus_footers/menu_css.php');
+    }
+?>
+
+</header>
+<div class="contentWrapper">
+<div class="columnWrapper">
+
+   <article class="main"> 

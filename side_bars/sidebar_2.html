@@ -1,0 +1,37 @@
+<?php #  -sidebar_1.html
+if(!isset($_SESSION['user_id']))
+//if(4>1)
+{
+echo '<a href="'.BASE_URL.'/utilities/login.php" class="press">Login</a>';
+}
+
+
+//welcome message with name if logged in
+//for some reason getting last log in not working on forgot password page so will not display this on page
+	// $url = BASE_URL . 'change_password.php';
+      $url ='/change_password.php';
+	  $url1='/contact.php';
+	  $current_page= $_SERVER['REQUEST_URI'];
+	  
+     if(isset($_SESSION['user_id'])) 
+       {
+	  echo "<h2> {$_SESSION['nickname']}</h2><p></p>";
+	   //if $words has a value get $words['sidebar_message'] words first used on chp17
+	           if(isset($words['sidebar_message1']))
+	            {
+	           echo '<p>'. $words['sidebar_message1']. '</p>';
+			   echo '<p>'. $words['sidebar_message2']. '</p>';
+			   echo '<p>'. $words['sidebar_message3']. '</p>';
+			   }
+  }else{//not logged in
+  
+	           //if $words has a value get $words['sidebar_message'] words first used on chp17
+	           if(isset($words['sidebar_message1']))
+	            {
+	           echo '<p>'. $words['sidebar_message1']. '</p>';
+			   echo '<p>'. $words['sidebar_message2']. '</p>';
+			   echo '<p>'. $words['sidebar_message3']. '</p>';
+			   }
+	 }
+	   
+?>

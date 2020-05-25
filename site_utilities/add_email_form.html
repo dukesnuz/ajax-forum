@@ -1,0 +1,52 @@
+<?PHP
+//check if user logged in ....if logged in then address is in our database
+if(!isset($_SESSION['address_id']))
+{
+?>
+
+<script>
+$(document).ready(function() {
+	$('#add_email').submit(function(){
+	var formData = $(this).serialize();
+	$.post('../site_utilities/add_email_ajax.php',formData,processData);
+		function processData(data){
+			if(data=='pass'){
+				//$('#content').html('<p class="error">Your email settings have been updated.</p>');
+				//$('#content').html('<p class="error">Your email settings have been updated.</p>');
+			 $('#email_reply').text('We received your email address.');
+			 $('#add_email').hide();
+			}else{	
+			    if ($('#empty').length==0){
+				  	$('#email_reply').html('<p class="error">Address not entered. Please try again.</p>');
+				 }; //end #fail
+				
+			   if ($('#fail').length==0){
+					//$('#content').append('<p class="error">System error proccess not completed. Please try again.</p>');
+					$('#email_reply').text('OOPS! Did you enter your email address correctly?');
+				}; //end #fail
+				//
+				if(data=='added'){
+				//$('#content').html('<p class="error">Your email settings have been updated.</p>');
+				//$('#content').html('<p class="error">Your email settings have been updated.</p>');
+			 $('#email_reply').text('You are already subscribed.');
+			 $('#add_email').hide();
+			}
+				//
+		} //end process data
+		} //end if
+		return false;
+		});// end submit
+}); // end ready
+</script>
+
+<!--class="subform" class="email_settings"-->
+
+<div id="email_reply"></div>
+<form action="../site_utilities/add_email_ajax.php" method="post" id="add_email">
+	<p><input type="text" name="address" class="formfield200" ></p>
+	<p><input type="submit"  name="submit" value="Subscribe to our mailing list." id="button" /></p>
+</form>
+
+<?php
+}
+?>

@@ -1,0 +1,110 @@
+<!--script 17.2 footer.html-->
+
+      </td>
+	</tr>
+ <tr>
+   <td></td>
+     </tr>
+	 </table>
+	 
+	 
+	 <!--chp 18   forum footer.html-->
+   </article>
+   
+    <aside class="sidebar1">
+<?php include('../side_bars/sidebar_2.html')?>
+         </aside>
+ </div><!--end column columnWrapper-->
+   
+   
+
+</div><!--end content-->
+</div><!--end contentWrapper-->
+
+<footer>
+
+<div class="positionone">
+<?php
+echo '<p><a href="'.BASE_URL.'/forum/index.php">Forum Stats</a></p>
+<p><a href="'.BASE_URL.'/utilities/about.php">What we do?</a></p>
+<p><a href="'.BASE_URL.'/utilities/contact.php">Contact</a></p>
+<p><a href="'.BASE_URL.'/utilities/about.php">Policy and Privacy</a></p>';
+?>
+</div><!--end position one-->
+
+<div class="positiontwo">
+<?php
+echo '<p><a href="http://www.ajaxtransport.com" class="my_button" target="blank">Our Freight Brokerage</a></p>';
+echo '<p><a href="http://www.thecentraldispatch.com" class="my_button" target="blank">Truck Links</a></p>';		
+echo '<p><a href="'.BASE_URL.'/utilities/error_report.php?page='.$page.'">Report an Error</a></p>';
+//check if logged in then grab address_ to go to page to update email subscriptions
+if(isset($_SESSION['user_id']) )
+{
+ //echo '<p><a href="'.BASE_URL.'/utilities/email_subscriptions.php?id='.$_SESSION['address_id'].'">Email Settings</a></p>';
+}
+ 
+echo '<p>Total Page Views = ';
+	include('../site_utilities/stats.html'); 
+	include('../site_utilities/page_history.php');
+	
+echo '</p>';
+
+?>
+
+</div><!--end positiontwo-->
+
+
+<div class="positionthree">
+
+<?php
+//get company logged in as and if shipper or carrier
+       //check if user logged in
+                 if(isset($_SESSION['user_id']))
+            {
+      if( ($_SESSION['carrier_id'] > 0)  && ($_SESSION['shipper_id'] > 0) )
+      {
+      echo "<p>Logged in as a carrier:$_SESSION[c_company_name] and a shipper:$_SESSION[s_company_name].</p>";
+      }elseif($_SESSION['carrier_id'] == 0)
+      {
+      echo "<p>Logged in as a shipper:$_SESSION[s_company_name]</p>'";
+      }elseif($_SESSION['shipper_id'] == 0 )
+      {
+       echo "<p>Logged in as a carrier:$_SESSION[c_company_name]</p>";
+      }else{
+      echo '<a href="../forum/forum.php">Forum</a>';
+      }
+      }//end check if loggedin
+?>
+
+
+<!--social media-->
+<p>Made in U.S.A &copy;&nbsp;<?php echo date('Y'); ?></p>
+
+
+<br>
+<!-- Social Media-->
+<div class="addthis_toolbox addthis_default_style ">
+
+		 <?php include('../site_utilities/social_media_inc.html');?>
+
+</div>
+<!-- Social Media-->
+
+</footer>
+</div><!--end pageWrapper-->
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var $_Tawk_API={},$_Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/54f9f584d99780432012ed29/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->	
+	 </body>
+	 </html>
+

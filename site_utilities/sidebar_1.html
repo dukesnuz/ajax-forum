@@ -1,0 +1,68 @@
+<?php # -sidebar_1.html
+
+//welcome message with name if logged in
+//for some reason getting last log in not working on forgot password page so will not display this on page
+	// $url = BASE_URL . 'change_password.php';
+      $url ='/change_password.php';
+	  $url1='/contact.php';
+ 
+	  $current_page= $_SERVER['REQUEST_URI'];
+       if(isset($_SESSION['user_id'])) 
+      {
+	  //echo "<h2> {$_SESSION['nickname']}</h2><p></p>";
+	  echo "<p> {S_SESSION['email_id']}</p>";
+	  //check if on forgot password page
+
+		if($current_page == $url)
+		//if(4>1)
+		{
+		//do not display last login
+		//echo "1";
+		}elseif($current_page == $url1)
+		{
+		//echo "2";
+		}else{
+	     //get last login date from current user
+		   $user_id=$_SESSION['user_id'];
+           //$q= "SELECT date_login FROM logins WHERE user_id = '$user_id' ORDER BY date_login DESC LIMIT 1,1 ";
+           $q= "SELECT date_created FROM history 
+           WHERE user_id = '$user_id' 
+          
+           ORDER BY date_created DESC LIMIT 1,1 ";
+           
+           $rpt=@mysqli_query($dbc, $q);
+           $rowpt = @mysqli_fetch_array($rpt, MYSQLI_NUM);
+           //$lastlogin=$rowpt[0];
+           $lastlogin =$rowpt['date_created'];
+		   $lastlogin= strtotime($lastlogin);
+		   $lastlogin= date("m/d/y g:i A", $lastlogin);
+              if($lastlogin >0)
+              // if(4>1)
+              {
+              echo  '<p>Your last login was @:</p><p>' .$lastlogin.'</p>';
+              echo 'last'.$rowpt['date_created'];
+              echo 111;
+             }else{
+             //echo '<p>There is no last login.</p>';
+             }
+      }//end if($_SERVER['REQUEST_URI'] == '$url')
+	
+            //if $words has a value get $words['sidebar_message'] words first used on chp17
+	           if(isset($words['sidebar_message1']))
+	            {
+	           echo '<p>'. $words['sidebar_message1']. '</p>';
+			   echo '<p>'. $words['sidebar_message2']. '</p>';
+			   echo '<p>'. $words['sidebar_message3']. '</p>';
+			   }
+  }else{//not logged in
+  
+
+	           if(isset($words['sidebar_message1']))
+	            {
+	           echo '<p>'. $words['sidebar_message1']. '</p>';
+			   echo '<p>'. $words['sidebar_message2']. '</p>';
+			   echo '<p>'. $words['sidebar_message3']. '</p>';
+			   }
+	 }
+	    
+?>

@@ -1,0 +1,235 @@
+<?php #My_forum from chp 17- header.html
+require('../site_utilities/config.inc.php');
+header('Content-Type: text/html; chartset=UTF-8');
+//declare url
+//define('BASE_URL', 'http://www.loadedandrolling.info');
+//start a seesion
+session_start();
+
+//see note page 530 about "Since this site does not have alogin"
+//$_SESSION['user_id'] = 1;
+//$_SESSION['user_tz'] = 'America/New_York';
+//$_SESSION =array();
+
+//i added next 2 lines 
+if(isset($_SESSION['user_id']))
+   {
+  //echo $_SESSION['user_id']; 
+	}
+// end I added 
+//connect to database
+// require(MYSQL); defined in config
+require(MYSQL); 
+//require('../includes/mysqli_connect.php');
+//require('../../loadedandrolling_mysqli_connect/mysqli_connect.php');
+
+//determine the language
+if(isset($_GET['lid']) && filter_var($_GET['lid'], FILTER_VALIDATE_INT, array('min-range' => 1 ))){
+    $_SESSION['lid'] = $_GET['lid'];
+	}elseif (!isset($_SESSION['lid'])){
+	$_SESSION['lid'] = 1; //Default.
+}
+	  
+//get the keywords for this language
+$q = "SELECT * FROM words WHERE lang_id = {$_SESSION['lid']}";
+$r= mysqli_query($dbc, $q);
+
+if(mysqli_num_rows($r) == 0)
+  {
+  $_SESSION['lid'] = 1;
+  $q = "SELECT * FROM words WHERE lang_id = {$_SESSION['lid']}";
+  $r= mysli_query($dbc, $q);
+  }
+  
+  //fetch retrieved words into an array and close php section
+  $words = mysqli_fetch_array($r, MYSQLI_ASSOC);
+  mysqli_free_result($r);
+
+  ?>
+  
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta charset="utf-8">
+<meta name="description" content="This is a forum message board  for the freight transportation industry. Carriers, Brokers or anyone in the transportation industry can post and read messages in this forum." />
+<meta name="keywords" content="message board, forum, freight transport, brokers, carriers,shippers,trucking" />
+<meta name="author" content="metatags generator">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="3 days">
+<meta name="generator" content=" ">
+<meta name="dcterms.created" content="">
+
+<meta name="p:domain_verify" content="dc11678227af18438bff9d43cf0cd643"/>
+ 
+    <title>
+	         <?php  if(isset($page_title)) 
+	         {
+			 echo $page_title;
+			 }else{
+	         echo $words['title'];
+		     }?>
+	</title>
+    
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	                                                    <!--?"<?php time();?>-->
+	  <link rel="stylesheet" media="all" href="../styles/styles.css" type="text/css"/>
+	  <!-- <link rel="shortcut icon" type="image/x-icon" href="http://LoadedAndRolling.com/r/images/favicon.ico">-->
+	  <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico">
+   
+
+<script src="../js/jquery-1.7.2.min.js"></script>
+<script src="../js/jquery.easing.1.3.js"></script> 
+<script src="../my_jquery/my_jquery_scripts.js"></script>
+
+
+<!--below scripts used for edit_driver_form.php-->
+<!--edit driver page my_trucks.php-->
+<script>
+$(document).ready(function(){
+     $('#textid a').click(function(){
+	 $('#errors').html('');
+     var href=$(this).attr('href');
+	 var id =href.slice(24);
+	 location.href='my_drivers.php?id='+id+'';
+	 return false;//stop follow link
+     });//end function
+	 $('#textid a').hover(function(){
+     $('#editdrivertable').show(1000); 
+     $('#editdrivertableheader').show(1000); 
+      });//end function
+});//end ready
+</script>
+<!--edit trucks page my_drivers.php-->
+<script>
+$(document).ready(function(){
+     $('#edittruck a').click(function(){
+	 $('#errors').html('');
+     var href=$(this).attr('href');
+	 var id =href.slice(23);
+	 location.href='my_trucks.php?id='+id+'';
+	return false;//stop follow link
+     });//end function
+	 $('#edittruck a').hover(function(){
+     $('#edittrucktable').show(1000); 
+     $('#edittrucktableheader').show(1000); 
+	 $('#edittrucktablefooter').show(1000);
+	 return false;//stop follow link
+      });//end function
+});//end ready
+</script>
+
+<!--post truck page my_drivers.php-->
+
+<script>
+$(document).ready(function(){
+   $('#posttruck a').click(function(){
+	 $('#errors').html('');
+     var href=$(this).attr('href');
+	 var id =href.slice(30);
+	 location.href='my_drivers.php?driver_id='+id+'';
+	 return false;//stop follow link
+      });//end function
+	 $('#posttruck a').hover(function(){
+     $('#posttrucktable').show(1000); 
+     $('#posttrucktableheader').show(1000); 
+      });//end function
+});//end ready
+</script>
+
+<!--end edit_load_form.php--> 
+<script>
+$(document).ready(function(){
+     $('#editload a').click(function(){
+	 $('#errors').html('');
+     var href=$(this).attr('href');
+	 var id =href.slice(22);
+	 location.href='my_loads.php?id='+id+'';
+	return false;//stop follow link
+     });//end function
+	 $('#editload a').hover(function(){
+     $('#editloadtable').show(1000); 
+     $('#editloadtableheader').show(1000); 
+	 $('#editloadtablefooter').show(1000);
+	 return false;//stop follow link
+      });//end function
+});//end ready
+</script>
+
+<!--show hide set coookie for user preference for displaying maintitle-->
+<script>
+$(document).ready(function(){
+    $('#headertoggle').click(function(){
+	//$('.maintitle').toggle(2000);
+	if($(".maintitle").is(":visible"))
+	{
+	setCookie("slide","1",7);  
+	$('.maintitle').hide(2000);
+	}else{
+	setCookie("slide","",-1); 
+	$('.maintitle').show(2000);
+	}
+     });//end click
+
+function setCookie(name,value,days)
+    {
+	var date= new Date();
+	date.setTime(date.getTime()+(days*24*60*60*1000));
+	var expires = "; expires="+date.toGMTString();
+	document.cookie = name +"="+ value + expires+"; path=/";
+      }  
+});//end document ready
+
+/*grab cookie to see if slide up or down selected*/
+function getCookie(slide)
+{
+	var name = "slide" + "=";
+	var ca =document.cookie.split(';');
+	for(var i=0; i<ca.length; i++)
+	{
+	  var c = ca[i].trim() 
+	    if (c.indexOf(name)==0)
+	    // if(4>8)
+	     {
+	     $('.maintitle').hide();
+	    }else{
+	     $('.maintitle').show();
+	     }
+	 }
+ }
+</script>
+</head>
+	<body onload="getCookie()">
+	
+	<div class="pageWrapper">
+<header>
+<!--using data base to store the below information
+<h1 class="maintitle">LoadedandRolling</h1>
+<h2 class="maintitle">Dedicated to the freight transportation industry.</h2>-->
+<?php include('../site_utilities/add_email_form.html');?>
+<div class="maintitle">
+<?php echo $words['intro']; ?>
+</div>
+
+
+<?php
+	//for some reason my_drivers.php and my_trucks.php  and search ecity state zip 
+	//is not working with the second menu which is a plugin
+	//so if on 1 of these pages change menue
+//select which menu to use
+//$menu_type = "menu_jquery";
+//$menu_type = "menu_css";
+if($menu_type == "menu_jquery")
+	{
+	include('../headers_menus_footers/menu_jquery_plugin.php');
+	}else{
+    include('../headers_menus_footers/menu_css.php');
+    }
+?>
+</header>
+<div class="contentWrapper">
+<div class="columnWrapper">
+
+
+   <article class="mainwide">

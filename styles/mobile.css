@@ -1,0 +1,26 @@
+/*used for mobile pages*/
+/*
+#content {
+    border-top:150px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color:#8EAAC0;
+    background-image:url('../images/metal002.jpg');	
+}
+*/
+.body{
+	background-color:#FFE30B;
+	background-color:#0000FF;
+}
+
+h1, h4{
+	color:#FF592A;
+ 
+}
+
+.press{
+  background-color:#FAF4FF;
+  border:3px solid #FF592A;
+}
+p{
+	color: #FF592A;
+}

@@ -1,0 +1,104 @@
+<?php #  -sidebar_1.html
+if(!isset($_SESSION['user_id']))
+//if(4>1)
+{
+echo '<a href="'.BASE_URL.'/utilities/login.php" class="press">Login</a>';
+}
+
+
+//welcome message with name if logged in
+//for some reason getting last log in not working on forgot password page so will not display this on page
+	// $url = BASE_URL . 'change_password.php';
+      $url ='/change_password.php';
+	  $url1='/contact.php';
+	  $current_page= $_SERVER['REQUEST_URI'];
+	  
+     if(isset($_SESSION['user_id'])) 
+       {
+	  echo "<h2> {$_SESSION['nickname']}</h2><p></p>";
+	 
+  if(isset($_SESSION['time_zone']))
+  {
+  $tz = $_SESSION['time_zone'];
+  }else{
+  $tz='America/New_York';
+  }
+		if($current_page == $url)
+		//if(4>1)
+		{
+		//do not display last login
+		//echo "1";
+		}elseif($current_page == $url1)
+		{
+		//echo "2";
+		}else{              
+		//CONVERT_TZ(t.date_posted,'UTC','$tz') AS
+	     //get last login date from current user
+		   $user_id=$_SESSION['user_id'];
+		   //
+
+           //$q= "SELECT CONVERT_TZ(date_created, 'UTC','$tz') AS date FROM history WHERE user_id = '$user_id' ORDER BY date DESC LIMIT 1,1 ";
+           //$q= "SELECT CONVERT_TZ(date, 'UTC','$tz') AS date FROM history WHERE user_id = '$user_id' ORDER BY date DESC LIMIT 1,2 ";
+             $q= "SELECT date FROM history WHERE user_id ='$user_id' ORDER BY date DESC LIMIT 1,1 ";
+          
+           $rpt=@mysqli_query($dbc, $q);
+		 
+           $rowpt = @mysqli_fetch_array($rpt, MYSQLI_NUM);
+           $lastlogin=$rowpt[0];
+          //$lastlogin=$lastlogin->format('%d:%h:%i:%s');
+		   $lastlogin= strtotime($lastlogin);
+		   //$lastlogin= date("m/d/y g:i A", $lastlogin);
+		   $lastlogin= date("m/d/y", $lastlogin);
+              if($lastlogin > 0)
+              //if(4>1)
+              {
+              echo "<p>Your last login was on:</p><p>$lastlogin</p>";
+        
+             }else{
+              //echo '<p>There is no last login.</p>';
+             }
+      }//end if($_SERVER['REQUEST_URI'] == '$url')
+	
+            //if $words has a value get $words['sidebar_message'] words first used on chp17
+	           if(isset($words['sidebar_message1']))
+	            {
+	           echo '<p>'. $words['sidebar_message1']. '</p>';
+			   echo '<p>'. $words['sidebar_message2']. '</p>';
+			   echo '<p>'. $words['sidebar_message3']. '</p>';
+			   }
+  }else{//not logged in
+  
+	           //if $words has a value get $words['sidebar_message'] words first used on chp17
+	           if(isset($words['sidebar_message1']))
+	            {
+	           echo '<p>'. $words['sidebar_message1']. '</p>';
+			   echo '<p>'. $words['sidebar_message2']. '</p>';
+			   echo '<p>'. $words['sidebar_message3']. '</p>';
+			   }
+	 }
+
+
+//grab news headlines
+
+
+      echo '</br><p>News Headlines</p></br>';
+ 
+	  $news= "SELECT title, url, date_created FROM news WHERE status='active' ORDER BY date_created DESC";
+    	
+	  $r = @mysqli_query($dbc, $news);
+	  
+	      //grab data from mysqli
+	  if(mysqli_num_rows($r)>1)
+		{
+		//echo "<ul class='mainNav3'>";
+		echo "<ul>";
+		while ($rows = mysqli_fetch_array($r, MYSQLI_ASSOC))
+		
+         echo "<li style='padding:2px;list-style:none;'><a href='http://$rows[url]' target='blank'>$rows[title]</a></li>";
+      
+        }else{
+     	   echo 'No news stories';
+        }
+      echo '</ul>';
+  
+//?>

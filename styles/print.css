@@ -1,0 +1,97 @@
+/************************
+ ******used for printing a web page*******
+ */
+h1{
+	color:#000000;
+	font-size:30pt;
+	font-weight: bold;
+	text-align: center;
+	margin:0pt;
+}
+h2{
+  font-size: 13pt;
+  text-align: center;
+  margin:0pt;
+   }
+p{
+	color:#000000;
+	font-size:11pt;
+	margin:0pt;
+}
+ .banner p{
+	color:#000000
+	text-align: left;
+}
+ 
+
+ .banner, .banner_2, .mainWrapper, .footer, .main{
+    width: auto;
+    margin: 0;
+    padding: 0;
+   }
+ .mainWrapper, .footer{
+   overflow: visible; 
+ }
+  html, body, .banner, .footerWrapepr{
+     background: #FFF;
+    }
+.banner{
+  height:auto;
+ /* text-align:center;*/
+  border-top: 2pt solid #000000;
+  /*border-bottom: 2pt solid red;*/
+  padding: 10pt 0;
+  margin-bottom: 0pt;
+ /* background-color:yellow;*/
+ }
+
+ .mainWrapper{
+ 
+ 	border-top: 2pt solid #000000;
+ }
+ .footerWrapper{
+  margin-top: 0pt;
+  border-top: 2pt dotted #000000;
+  padding-top: 5pt;
+   }
+ .footerWrapper p{
+    font-size: 9pt;
+    }
+ a:after{
+   content: "("attr(href)")";
+    }
+
+#column{
+	/*height:125pt;*/
+	margin-left:140pt;
+	margin-right:140pt;
+	margin-bottom: 0t;
+	border-left: 2pt solid #000000;
+	border-right: 2pt solid #000000;
+	padding:4pt;
+}
+.banner_2 li{
+	display: inline;
+	border-left: 2pt solid #000000;
+	padding: 1pt;
+
+}
+.banner_2 ul{
+	margin:0pt;
+	border: 1pt solid #000000;
+	
+}
+.banner_2{
+	font-size: 11pt;
+    /*height: 11pt;*/
+    text-align: center;
+   /* background-color:green;*/
+    border-top: 1pt solid #000000;
+    border:0pt solid #000000;
+    margin-bottom: 0pt;
+}
+
+li{
+	list-style-type: none;
+	margin-bottom:1pt;
+}

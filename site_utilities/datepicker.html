@@ -1,0 +1,78 @@
+<!--datepicker-->
+<!--start datepicker-->
+<!--below used for datepicker
+***style classes...
+http://api.jqueryui.com/datepicker
+http://api.jqueryui.com/theming/css-framework/
+also needs below links-->
+<!--
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+-->
+<!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
+<!--
+	<link rel="stylesheet" type="text/css" href="../jquery_ui/js/js/my_css/dot-luv/jquery-ui-1.10.4.custom.css">
+-->
+<link rel="stylesheet" type="text/css" href="../styles/my_css/dark-hive/jquery-ui-1.10.4.custom.css">
+
+
+<!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+<!--my added styles are in my style sheet ...jquery.css...-->
+<!--
+<styles>
+.ui-datepicker-title{
+background-color:#1420FF;
+}
+.ui-datepicker-today{
+     background-color:#FF6D33;
+	  }
+.ui-datepicker-unselectable{
+   background-color:#FFF7D2;
+    }
+ </styles>
+-->
+<!-- add this to form...id="datepicker"...-->
+<script>
+$(function(){
+   $("#datepicker").datepicker({
+    minDate:0,
+    showButtonPanel:true,
+	changeMonth:true,
+	changeYear:true,
+	showWeek:true,
+	firstDay:1
+     });
+   $("#anim").change(function(){
+   $("#datepicker").datepicker("bounce","showAnim",$(this).val() );
+      });
+   });
+   </script>
+<!--end date picker-->
+
+
+
+<!-- addeddatepicker2.in order to have date picker in more than one place on page-->
+<!--add this to form...id="datepicker"...-->
+<script>
+$(function(){
+   $("#datepicker2").datepicker({
+    minDate:0,
+    showButtonPanel:true,
+	changeMonth:true,
+	changeYear:true,
+	showWeek:true,
+	firstDay:1
+     });
+   $("#anim").change(function(){
+   $("#datepicker2").datepicker("bounce","showAnim",$(this).val() );
+      });
+   });
+   </script>
+<!--end date picker-->
+
+
+
+  
+  
+  
